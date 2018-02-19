@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int snap      = 4;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor
                                                    >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -10,15 +10,15 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
                                                    0: display systray on the last monitor */
 static const int showsystray  = 1;              /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "DejaVuSansMono Nerd Font:size=10" };
-static const char dmenufont[]       = "DejaVuSansMono Nerd Font:size=10";
-static const char col_norm_border[]       = "#073642";
-static const char col_norm_bg[]           = "#101010";
-static const char col_norm_fg[]           = "#dddddd";
-static const char col_sel_border[]        = "#839496";
-static const char col_sel_bg[]            = "#202020";
-static const char col_sel_fg[]            = "#30aaff";
+static const int topbar             = 0;        /* 0 means bottom bar */
+static const char *fonts[]          = { "terminus:pixelsize=12" };
+static const char dmenufont[]       = "terminus:pixelsize=12";
+static const char col_norm_border[]       = "#000000";
+static const char col_norm_bg[]           = "#000000";
+static const char col_norm_fg[]           = "#ffffff";
+static const char col_sel_border[]        = "#ffffff";
+static const char col_sel_bg[]            = "#ffffff";
+static const char col_sel_fg[]            = "#000000";
 static const char *colors[][3]      = {
 	/*               fg           bg           border   */
 	[SchemeNorm] = { col_norm_fg, col_norm_bg, col_norm_border },
@@ -26,7 +26,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "電網" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -47,13 +47,13 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "",      tile },    /* first entry is default */
-	{ "",      NULL },    /* no layout function means floating behavior */
+	{ "T",      tile },    /* first entry is default */
+	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",    monocle },
   { "TTT",    bstack },
-  { "",      bstackhoriz },
+  { "===",      bstackhoriz },
   { "",      centeredmaster },
-  { "",      centeredfloatingmaster },
+  { "[o]",      centeredfloatingmaster },
 };
 
 /* key definitions */
@@ -70,7 +70,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_norm_bg, "-nf", col_norm_fg, "-sb", col_sel_bg, "-sf", col_sel_fg, NULL };
-static const char *termcmd[]  = { "termite", NULL };
+static const char *termcmd[]  = { "st", "-f", "terminus", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -91,7 +91,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY|ShiftMask,             XK_b,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY|ShiftMask,             XK_h,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[5]} },
+	{ MODKEY|ShiftMask,             XK_m,      togglefullscreen, {0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_m,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[6]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
