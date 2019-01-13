@@ -10,15 +10,15 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
                                                    0: display systray on the last monitor */
 static const int showsystray  = 1;              /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 0;        /* 0 means bottom bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "terminus:pixelsize=12" };
 static const char dmenufont[]       = "terminus:pixelsize=12";
-static const char col_norm_border[]       = "#000000";
-static const char col_norm_bg[]           = "#000000";
-static const char col_norm_fg[]           = "#ffffff";
-static const char col_sel_border[]        = "#ffffff";
-static const char col_sel_bg[]            = "#ffffff";
-static const char col_sel_fg[]            = "#000000";
+static const char col_norm_border[]       = "#272823";
+static const char col_norm_bg[]           = "#272823";
+static const char col_norm_fg[]           = "#0fa8ad";
+static const char col_sel_border[]        = "#0fa8ad";
+static const char col_sel_bg[]            = "#272823";
+static const char col_sel_fg[]            = "#f11a5e"; //"#75427a";
 static const char *colors[][3]      = {
 	/*               fg           bg           border   */
 	[SchemeNorm] = { col_norm_fg, col_norm_bg, col_norm_border },
@@ -26,7 +26,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "⚀", "⚁", "⚂", "⚃", "⚄", "⚅" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -47,11 +47,11 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "T",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",    monocle },
-  { "TTT",    bstack },
-  { "===",      bstackhoriz },
+	{ "◨",      tile },    /* first entry is default */
+	{ "◰",      NULL },    /* no layout function means floating behavior */
+	{ "🄼",    monocle },
+  { "⇆",    bstack },
+  { "☰",      bstackhoriz },
   { "",      centeredmaster },
   { "[o]",      centeredfloatingmaster },
 };
@@ -70,7 +70,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_norm_bg, "-nf", col_norm_fg, "-sb", col_sel_bg, "-sf", col_sel_fg, NULL };
-static const char *termcmd[]  = { "st", "-f", "terminus", NULL };
+static const char *termcmd[]  = { "sakura", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -96,8 +96,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[6]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+//	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+//	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
@@ -107,11 +107,11 @@ static Key keys[] = {
 	TAGKEYS(                        XK_3,                      2)
 	TAGKEYS(                        XK_4,                      3)
 	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	TAGKEYS(                        XK_6,                      4)
+	TAGKEYS(                        XK_7,                      3)
+	TAGKEYS(                        XK_8,                      4)
+	TAGKEYS(                        XK_9,                      5)
+	{ MODKEY|ControlMask|ShiftMask,             XK_q,      quit,           {0} },
 };
 
 /* button definitions */

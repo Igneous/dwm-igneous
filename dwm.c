@@ -1273,7 +1273,37 @@ monocle(Monitor *m)
 		if (ISVISIBLE(c))
 			n++;
 	if (n > 0) /* override layout symbol */
-		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+    switch(n) {
+      case 1:
+        snprintf(m->ltsymbol, sizeof m->ltsymbol, "❶");
+        break;
+      case 2:
+        snprintf(m->ltsymbol, sizeof m->ltsymbol, "❷");
+        break;
+      case 3:
+        snprintf(m->ltsymbol, sizeof m->ltsymbol, "❸");
+        break;
+      case 4:
+        snprintf(m->ltsymbol, sizeof m->ltsymbol, "❹");
+        break;
+      case 5:
+        snprintf(m->ltsymbol, sizeof m->ltsymbol, "❺");
+        break;
+      case 6:
+        snprintf(m->ltsymbol, sizeof m->ltsymbol, "❻");
+        break;
+      case 7:
+        snprintf(m->ltsymbol, sizeof m->ltsymbol, "❼");
+        break;
+      case 8:
+        snprintf(m->ltsymbol, sizeof m->ltsymbol, "❽");
+        break;
+      case 9:
+        snprintf(m->ltsymbol, sizeof m->ltsymbol, "❾");
+        break;
+      default :
+        snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+    }
 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
 		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
 }
